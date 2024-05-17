@@ -1,4 +1,4 @@
-import './category-item.styles.scss';
+import './category-item.styles.scss'
 
 const CategoryItem = ({category}) => {
     const {imageUrl, title} = category;
@@ -12,9 +12,11 @@ const CategoryItem = ({category}) => {
           backgroundImage: `url(${imageUrl})`,
         }}
       />
-      <div className="category-body-container">
+      {/* <div className="category-body-container">
         <h2>{title}</h2>
-        <p>Shop now</p>
+      </div> */}
+      <div className="shop-category-btn">
+        <button className='cta-btn'>{title}</button>
       </div>
     </div>
   );
