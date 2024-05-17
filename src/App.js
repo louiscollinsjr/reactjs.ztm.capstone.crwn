@@ -4,7 +4,7 @@ const App = () => {
   const categories = [ {
     id: 1,
     title: 'caps',
-    imageUrl: 'https://cdn.midjourney.com/36a3ae24-af81-4492-9915-a31409da887c/0_0.png',
+    imageUrl: 'https://cdn.midjourney.com/14996a8d-e9c0-4ee5-a401-932d378522c8/0_3.png',
   },
   {
     id: 2,
@@ -19,12 +19,12 @@ const App = () => {
   {
     id: 4,
     title: 'womens',
-    imageUrl: 'https://cdn.midjourney.com/b0abf0ce-7902-498c-9752-abbda2943d69/0_1.png',
+    imageUrl: 'https://cdn.midjourney.com/89b8d92a-0e6d-4fff-ac01-fcb5fe040041/0_2.png',
   },
   {
     id: 5,
     title: 'mens',
-    imageUrl: 'https://cdn.midjourney.com/bd2f5174-5712-4311-a072-1c2f5c7abc8c/0_1.png',
+    imageUrl: 'https://cdn.midjourney.com/387e1e86-cd63-42ce-a04f-c032c2617a7a/0_0.png',
   },
 
 ]
