@@ -1,35 +1,23 @@
-import CategoryList from './components/category-list/category-list.component';
+import { Routes, Route } from 'react-router-dom';
+
+import Navigation from './routes/navigation/navigation.component';
+import SignIn from './routes/sign-in/sign-in.component';
+import Home from './routes/home/home.component';
+
+const Shop = () => {
+  return <h2>Shop.</h2>;
+};
 
 const App = () => {
-  const categories = [ {
-    id: 1,
-    title: 'caps',
-    imageUrl: 'https://cdn.midjourney.com/14996a8d-e9c0-4ee5-a401-932d378522c8/0_3.png',
-  },
-  {
-    id: 2,
-    title: 'outter wear',
-    imageUrl: 'https://cdn.midjourney.com/e6b0f2e9-5c7d-40ff-8e3b-56bff67dfda3/0_2.png',
-  },
-  {
-    id: 3,
-    title: 'running',
-    imageUrl: 'https://cdn.midjourney.com/426df441-dd48-4f5a-8229-36d664c6e3ca/0_2.png',
-  },
-  {
-    id: 4,
-    title: 'womens',
-    imageUrl: 'https://cdn.midjourney.com/89b8d92a-0e6d-4fff-ac01-fcb5fe040041/0_2.png',
-  },
-  {
-    id: 5,
-    title: 'mens',
-    imageUrl: 'https://cdn.midjourney.com/387e1e86-cd63-42ce-a04f-c032c2617a7a/0_0.png',
-  },
-
-]
-  return <CategoryList categories={categories}/>
-
+  return (
+    <Routes>
+      <Route path="/" element={<Navigation />}>
+        <Route index={true} element={<Home />} />
+        <Route path="shop" element={<Shop />} />
+        <Route path="sign-in" element={<SignIn />} />
+      </Route>
+    </Routes>
+  );
 };
 
 export default App;
