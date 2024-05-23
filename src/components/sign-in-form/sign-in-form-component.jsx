@@ -1,58 +1,57 @@
 import { useState } from 'react';
 
 import {
+  signInWithGooglePopup,
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
+  signInAuthUserWithEmailAndPassword,
 } from '../../utils/firebase/firebase.utils';
 
 import FormInput from '../form-input/form-input.component';
-import './sign-up-form.styles.scss';
+import './sign-in-form.styles.scss';
 
 import Button from '../button/button.component';
 
 const defaultFormFields = {
-  displayName: '',
   email: '',
   password: '',
-  confirmPassword: '',
 };
 
-const SignUpForm = () => {
+const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const { displayName, email, password, confirmPassword } = formFields;
-
-
+  const { email, password } = formFields;
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
 
+  const signInWithGoogle = async () => {
+    const { user } = await signInWithGooglePopup();
+    const userDocRef = await createUserDocumentFromAuth(user);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-console.log('kooou')
-    if (password !== confirmPassword) {
-      alert('Passwords do not match');
-      return;
-    }
-
+   
     try {
-      const { user } = await createAuthUserWithEmailAndPassword(
+      const response = await signInAuthUserWithEmailAndPassword(
         email,
         password
       );
-
-      await createUserDocumentFromAuth(user, { displayName });
-
+      console.log(response);
       resetFormFields();
     } catch (error) {
-      if (error.code === 'auth/email-already-in-use') {
-        alert('Connot create user, email already in use');
-      } else {
-        console.log('user creation had error', error);
+      switch (error.code) {
+        case 'auth/wrong-password':
+          alert('incorrect password');
+          break;
+          case ' auth/user-not-found':
+            alert('usr not found');
+            break;
+            default:
+              console.log(error);
       }
-      // 400 Bad request Firebase: Password should be at least 6 characters (auth/weak-password).
-      // Firebase: Error (auth/email-already-in-use).
+    
     }
   };
 
@@ -62,19 +61,10 @@ console.log('kooou')
   };
 
   return (
-    <div className="sign-up-container">
+    <div className="sign-in-container">
       <h2>Don't have an account?</h2>
       <span className="">Sign up with your email and password.</span>
       <form onSubmit={handleSubmit}>
-        <FormInput
-          label="Display name"
-          type="text"
-          required
-          onChange={handleChange}
-          name="displayName"
-          value={displayName}
-        />
-
         <FormInput
           label="Email"
           type="email"
@@ -93,18 +83,15 @@ console.log('kooou')
           value={password}
         />
 
-        <FormInput
-          label="Confirm Password"
-          type="password"
-          required
-          onChange={handleChange}
-          name="confirmPassword"
-          value={confirmPassword}
-        />
-        <Button type="submit">Sign up</Button>
+        <div className="buttons-container">
+          <Button type="submit">Sign in</Button>
+          <Button type='button' buttonType="google" onClick={signInWithGoogle}>
+            Sign in with Google
+          </Button>
+        </div>
       </form>
     </div>
   );
 };
 
-export default SignUpForm;
+export default SignInForm;
